@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Cookie.Framework
+namespace Cookie
 {
     public enum ShapeType
     {
@@ -18,40 +18,30 @@ namespace Cookie.Framework
     {
         public ShapeType ShapeType;
         public VertexRange VertexRange { get => _vertexRange; }
+        public Transform Transform { get => _transform; }
         [SerializeField] bool _debug;
         [HideInInspector] public Vector3[] Vertexs { get => _vertexs; }
         
 
-        Transform _tr;
+        Transform _transform;
         Vector3[] _vertexs;
         VertexRange _vertexRange;
         private void Awake()
         {
-            _tr = GetComponent<Transform>();
-        }
-        void Start()
-        {
+            _transform = GetComponent<Transform>();
             UpdateVertexs();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                UpdateVertexs();
-            }
-        }
         public void UpdateVertexs()
         {
             switch (ShapeType)
             {
                 case ShapeType.Square:
                     _vertexs = new Vector3[4];
-                    _vertexs[0] = new Vector3(-_tr.localScale.x * 5 + _tr.position.x, _tr.position.y, _tr.localScale.z * 5 + _tr.position.z);
-                    _vertexs[1] = new Vector3(_tr.localScale.x * 5 + _tr.position.x, _tr.position.y, _tr.localScale.z * 5 + _tr.position.z);
-                    _vertexs[2] = new Vector3(-_tr.localScale.x * 5 + _tr.position.x, _tr.position.y, -_tr.localScale.z * 5 + _tr.position.z);
-                    _vertexs[3] = new Vector3(_tr.localScale.x * 5 + _tr.position.x, _tr.position.y, -_tr.localScale.z * 5 + _tr.position.z);
+                    _vertexs[0] = new Vector3(-_transform.localScale.x * 5 + _transform.position.x, _transform.position.y, _transform.localScale.z * 5 + _transform.position.z);
+                    _vertexs[1] = new Vector3(_transform.localScale.x * 5 + _transform.position.x, _transform.position.y, _transform.localScale.z * 5 + _transform.position.z);
+                    _vertexs[2] = new Vector3(-_transform.localScale.x * 5 + _transform.position.x, _transform.position.y, -_transform.localScale.z * 5 + _transform.position.z);
+                    _vertexs[3] = new Vector3(_transform.localScale.x * 5 + _transform.position.x, _transform.position.y, -_transform.localScale.z * 5 + _transform.position.z);
                     break;
             }
             UpdateVertexsRange();
